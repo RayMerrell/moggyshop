@@ -1,3 +1,7 @@
 .App {
   text-align: center;
 }
+.modalBackground{
+  background-color: darkgray;
+  border:solid 1px red;
+}
