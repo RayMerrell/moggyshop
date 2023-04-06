@@ -1,6 +1,10 @@
-const ShoppingCart= () => {
+const ShoppingCart= (cartData) => {
+let total= 0;
+cartData.map((cat) => {
+  total += cartData.price      
 
-      return (
+
+  return (
         <div class="row">
         <div class="col s4 offset-s1">
           <div class="card blue-grey darken-1">
@@ -15,7 +19,7 @@ const ShoppingCart= () => {
         </div>
       </div>
         );
-    
+      })
     }
     
     
