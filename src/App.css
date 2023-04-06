@@ -4,20 +4,18 @@
 .shadowCard{
   box-shadow:0.25rem 0.25rem 0.175rem grey;
 }
+.imageContainer{
+  position:relative;  
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -10%);
+}
 .mainCatPic{
   padding:0.25rem;
-  left:50% !important;
-  top:50% !important;
-  bottom:auto!important;
-  right:auto !important;
-  /* width:auto !important;
-  max-width:20vw; */
-  transform: translate(-50%, -50%);
 }
 .gridBox{
   margin:1rem;
   display:grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr ;
   gap:2rem;
 }
