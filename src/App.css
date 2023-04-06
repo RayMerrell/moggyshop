@@ -19,3 +19,9 @@
   grid-template-columns: 1fr 1fr 1fr ;
   gap:2rem;
 }
+.addToCart{
+  cursor:pointer;
+}
+.addToCart:hover{
+  box-shadow: 120px 80px 40px 20px #0ff;
+}
