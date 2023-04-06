@@ -18,6 +18,7 @@ function App() {
         }
         let data = await response.json();
         setAllCats(data);
+        console.log("All Data", data);
       } catch (err) {
         setErrorMsg(err);
         console.log(errorMsg);
