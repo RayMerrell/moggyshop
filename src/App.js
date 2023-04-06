@@ -2,6 +2,9 @@ import "./App.css";
 import CatCard from "./components/CatCard";
 import { useState, useEffect } from "react";
 import { faker } from '@faker-js/faker/locale/en_GB'
+import Navbar from "./components/Navbar";
+import ShoppingCart from "./components/ShoppingCart";
+import NavFooter from "./components/NavFooter";
 
 function App() {
   const [allCats, setAllCats] = useState([]);
@@ -49,6 +52,7 @@ function App() {
   } else {
       return (
         <div className="App">
+          <Navbar />
           <div className="gridBox">
             {allCats.map((cat) => {
               return (
@@ -67,6 +71,8 @@ function App() {
               );
             })}
           </div>
+          <ShoppingCart/>
+          <NavFooter/>
         </div>
     );
   }
