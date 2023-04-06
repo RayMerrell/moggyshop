@@ -1,3 +1,4 @@
+const ShoppingCart = (cartData) => {
 
 const ShoppingCart= ({cartData}) => {
   console.log("arraylength", cartData.length);
@@ -23,4 +24,5 @@ const ShoppingCart= ({cartData}) => {
     return (<div><h2>footer</h2></div>);
   }
 }      
+
 export default ShoppingCart;
