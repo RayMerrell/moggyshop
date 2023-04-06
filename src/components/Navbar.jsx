@@ -3,7 +3,7 @@ const Navbar = () => {
     return (
         <nav>
         <div className="valign-wrapper pink">
-          <a href="" className="brand-logo center">Cats 4 You</a>
+          <a href="" className="brand-logo center">Moggy Shop</a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li><a href="">Home</a></li>
             <li><a href="">Contact</a></li>

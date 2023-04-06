@@ -22,8 +22,13 @@ function App() {
           throw new Error(response.statusText);
         }
         let data = await response.json();
-        setAllCats(data);
+        
         console.log("All Data", data);
+        data.map((cat) => {
+          cat.name = faker.name.firstName();
+          cat.price = faker.finance.amount(50, 200, 2, '', false);
+        });
+        setAllCats(data);
       } catch (err) {
         setErrorMsg(err);
         console.log(errorMsg);
@@ -44,8 +49,7 @@ function App() {
   }
   newArray.push(item);
   setShoppingCart([...newArray]);
-  console.log(shoppingCart);
-
+  console.log("Shopping Cart", shoppingCart);
  }
   if ((allCats === undefined) | (allCats === [])) {
     return <>Loading...</>;
@@ -60,19 +64,21 @@ function App() {
                   key={cat.id}
                   id={cat.id}
                   url={cat.url}
-                  name={faker.name.firstName()}
+                  name={cat.name}
                   breed={cat.breeds[0].name}
                   country={cat.breeds[0].origin}
                   temperament={cat.breeds[0].temperament}
                   description={cat.breeds[0].description}
-                  price={faker.finance.amount(50, 200, 2, '£', true)}
+                  price={cat.price}
                   addToCart={addToCart}
                 />
               );
             })}
           </div>
-          <ShoppingCart/>
-          <NavFooter/>
+          <ShoppingCart 
+                cartData={shoppingCart}
+          />
+          <NavFooter />
         </div>
     );
   }
