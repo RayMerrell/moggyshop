@@ -1,24 +1,26 @@
 
-const ShoppingCart= () => {
-
-      return (
-        <div class="row">
-        <div class="col s4 offset-s1">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Cats Name</span>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam repellat veritatis sit. Veritatis velit, animi ullam aut excepturi accusamus officia, eveniet consequatur, nulla architecto neque? Repellendus explicabo aliquid debitis quam.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">dont want this now, changed my mind</a>
-            </div>
-          </div>
-        </div>
+const ShoppingCart= ({cartData}) => {
+  console.log("arraylength", cartData.length);
+  console.log("input", cartData);
+  if (cartData.length===undefined){
+    return(
+      <div className="shoppingCart">
+        <h2>Your shopping cart is empty</h2>
       </div>
-        );
-    
-    }
-    
-    
-    
-    export default ShoppingCart;
+    )
+  }else{
+    cartData.map((cat) => {
+      console.log("in loop", cat.name);
+      return (
+        <div className="shoppingCart">
+          <h1>This is a cat</h1>
+          <h2>{cat.name}</h2>
+          <img src={cat.image} />
+          <p>Price:£{cat.price}</p>
+        </div>
+      );      
+    });
+    return (<div><h2>footer</h2></div>);
+  }
+}      
+export default ShoppingCart;
