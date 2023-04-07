@@ -1,0 +1,14 @@
+*{
+  padding:0;
+  margin: 0;
+}
+body{     
+  overflow: hidden;
+}
+.App {
+  text-align: center;
+  min-height:100vh;
+  border:solid 5px blue;
+  display: flex;
+  flex-direction: column;
+}

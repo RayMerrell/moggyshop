@@ -1,0 +1,82 @@
+  .mainDisplayContainer{
+    display:flex;
+    flex-direction: column;
+    height: 80vh;
+    position:relative;
+  }  
+  .gridBox{    
+    z-index: 0;
+    flex-basis:90vh;
+    flex-shrink: 1;
+    margin:1rem;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    gap:2rem;
+  }
+  .cataloguePageNavContainer{
+    flex-basis:10vh;
+    flex-shrink:0;
+    align-self: baseline;
+  }
+.shadowCard{
+    box-shadow:0.25rem 0.25rem 0.175rem grey;
+  }
+  .imageContainer{
+    position:relative;  
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -10%);
+  }
+  .mainCatPic{
+    padding:0.25rem;
+  }
+
+  .addToCart{
+    width:5rem;
+    height:1.5rem;
+    background: lightgray;
+    font-size:0.75em;
+    border-radius: 0.5em;
+    border:1px solid #777;
+    cursor: pointer;    
+    text-shadow:0 0 0.1em #222;
+    letter-spacing: 0.02em;
+  }
+  .addToCart:hover{
+    border:solid 1px gold;
+    box-shadow: 0.005em 0.005em 0.1em inset gold, 0.005em 0.005em 0.1em gold;
+  }
+  
+  @property --gradientAngle{
+    syntax:"<angle>";
+    initial-value:90deg;
+    inherits:false;
+  }
+  @keyframes gradientRotation{
+    0% {--gradientAngle:0deg;}
+    100%{--gradientAngle: 360deg;}
+  }
+  .clsRotatingGlow{
+    position:relative;
+  }
+  .clsRotatingGlow::before, .clsRotatingGlow::after{
+    content:"";
+    filter:blur(0.25em);
+    position: absolute;
+    inset:0;
+    z-index: -1;
+    /* background: gold; */
+    background:conic-gradient(
+        from var(--gradientAngle),
+        rgb(235, 224, 165),
+        gold,
+        rgb(235, 224, 165),
+        gold,
+        rgb(235, 224, 165),
+        gold,
+        rgb(235, 224, 165),
+        gold,
+        rgb(235, 224, 165));
+    border-radius: inherit;
+    animation: gradientRotation 10s linear infinite;
+  }
