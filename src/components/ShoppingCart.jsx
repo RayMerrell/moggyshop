@@ -1,17 +1,17 @@
 import "./../css/ShoppingCart.css";
 
-const ShoppingCart = (cartData, styleData, close) => {
-  console.log("Style", styleData);
-  let cartItems = cartData.cartData;
+const ShoppingCart = ({cartData, styleData, close}) => {
+
   let strClass= "ShoppingCart " + styleData;
   return ( 
-    cartItems &&
-    cartItems.length > 0 && (
+    cartData &&
+    cartData.length > 0 && (
       <div className={strClass} id="idShoppingCart" key="shoppingCart">
-        {cartItems.map((cat) => {
-          console.log("in loop", cat.name);
+        {cartData.map((cat) => {
+          
+          let strKey="cartItem"+cat.id;
           return (
-            <div className="cartItem">
+            <div className="cartItem" key={strKey}>
               <h1>This is a cat</h1>
               <h2>{cat.name}</h2>
               <img src={cat.image} className="CartPic" />
