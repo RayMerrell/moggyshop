@@ -8,7 +8,6 @@ const ITEMS_PER_PAGE = 6;
 const Catalogue = () => {
   const [allCats, setAllCats] = useState([]);
   const [displayCats, setdisplayCats] = useState([]);
-  const [errorMsg, setErrorMsg] = useState("");
   const [shoppingCart, setShoppingCart] = useState([]);
   const [scStyle, setSCStyle] = useState("shoppingCartHidden");
   const [buttonText, setButtonText] = useState([]);
@@ -17,7 +16,6 @@ const Catalogue = () => {
 
   const setButtons = () => {
     try {
-      console.log("Set buttons");
       let arrButtonText = [];
       for (let index = 0; index < ITEMS_PER_PAGE; index++){
           displayCats[index].inBasket
@@ -25,7 +23,6 @@ const Catalogue = () => {
             : (arrButtonText[index] = "Add to cart");
       }
       setButtonText([...arrButtonText]);
-      console.log("Button Text", arrButtonText);
     } catch (e) {
       console.log(e);
     }
@@ -33,7 +30,6 @@ const Catalogue = () => {
 
   const showDisplayCats = () => {
     try {
-      console.log("Setting display", displayCats, "from", allCats);
       //update the screen cats
       let arrScreenCats = [];
       let displayIndex=0;
@@ -46,31 +42,23 @@ const Catalogue = () => {
         displayIndex++;
       }
       setdisplayCats([...arrScreenCats]);
-      console.log("Display set", arrScreenCats);
     } catch (e) {
       console.log(e);
     }
   };
 
   const fetchData = async () => {
-    console.log("Fetching data", pageNumber);
     let index = pageNumber * ITEMS_PER_PAGE;
     if (allCats[index] === undefined) {
       //we need more cats
-      console.log("We need more cats coz we have", allCats.length);
       try {
         const response = await fetch(
           `https://api.thecatapi.com/v1/images/search?page=${pageNumber}&limit=${ITEMS_PER_PAGE}&size=small&has_breeds=1&api_key=live_ED3UDvCoh1PzVa03jM2uVJgmxVG6rVICzdmxLK3gxZniymcZxVAtfEtUwcoV1Rmu`
         );
         if (!response.ok) {
-          console.log("response not ok");
           throw new Error(response.statusText);
-        } else {
-          console.log("Fetch respononse ok");
-        }
-        let data = await response.json();
+        }         let data = await response.json();
         let newCats = allCats;
-        console.log("Data fetched", data);
         data.map((cat) => {
           cat.name = faker.name.firstName();
           cat.price = faker.finance.amount(10, 100, 2, "", false);
@@ -79,34 +67,26 @@ const Catalogue = () => {
           newCats[index] = cat;
           index++;
         });
-        console.log("Setting cats to", newCats);
         setAllCats([...newCats]);
-        console.log("We now have", allCats);
-      } catch (err) {
-        setErrorMsg(err);
-        console.log(errorMsg);
+      } catch (e) {
+        console.log(e);
       }
     }else{//no data, so fire update manually
       showDisplayCats();
     }
-    console.log("allCats", allCats);
   };
 
   const handlePageForward = () => {
-    console.log("Page forward", pageNumber);
     setPageNumber(pageNumber=>pageNumber+1);
   };
 
   const handlePageBack = () => {
-    console.log("Page back", pageNumber);    
     if (pageNumber > 0) {
-      console.log("Reverse valid, calling stupid fucking shitarse function");
       setPageNumber(pageNumber=>pageNumber-1);
     }
   };
-
+//useEffect chain...Start/page button => Fetch Data => set cats to be shown => set button text (add/remove from cart) => update screen
   useEffect(() => {
-    console.log("Page fired", pageNumber);
     fetchData();
   }, [pageNumber]);
 
@@ -119,7 +99,6 @@ const Catalogue = () => {
   }, [displayCats]);
 
   useEffect(() => {
-    console.log("Button text done, doing showScreen");
     setDisplayHTML(showScreen());
   }, [buttonText]);
 
@@ -132,12 +111,10 @@ const Catalogue = () => {
   };
 
   const closeShoppingCart = () => {
-    console.log("Closing sc");
     setSCStyle("shoppingCartHidden");
   };
 
   const addToCart = (index) => {
-    console.log("Adding to cart", allCats[index]);
     let newCart = shoppingCart;
     let newCats = allCats;
     let cat = allCats[index];
@@ -151,14 +128,13 @@ const Catalogue = () => {
     newCats[index].inBasket = true;
     setShoppingCart([...newCart]);
     setAllCats([...newCats]);
+    //output to session storage for later use by checkout
     sessionStorage.setItem("shoppingCart", JSON.stringify(newCart));
   };
 
   const handleCartButton = (index, displayIndex) => {
-    console.log("Handle Cart Button");
     if ((allCats[index].inBasket === true)) {
       //remove from basket
-      console.log("Basket removal in progress");
       let newCart = [];
       let newCats = allCats;
       shoppingCart.map((cat) => {
@@ -167,6 +143,7 @@ const Catalogue = () => {
         }
       });
       setShoppingCart([...newCart]);
+      //output to session storage for later use by checkout
       sessionStorage.setItem("shoppingCart", JSON.stringify(newCart));
       newCats[index].inBasket = false;
       setAllCats([...newCats]);
@@ -179,7 +156,6 @@ const Catalogue = () => {
   };
 
   const showScreen = () => {
-    console.log("showScreen", buttonText);
     let cardIndex = -1;
     try {
       return (
@@ -189,7 +165,6 @@ const Catalogue = () => {
             <div className="gridBox">
               {displayCats.map((cat) => {                
                 cardIndex++;
-                console.log("cat", cat.name);
                 let booFound = false;
                 let strKey = "CatCard" + cat.id;
                 let strBreed = cat.breeds[0].name;
