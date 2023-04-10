@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/moggyshop/static/css/main.2d76ab58.css",
+    "main.js": "/moggyshop/static/js/main.397b7554.js",
+    "index.html": "/moggyshop/index.html",
+    "main.2d76ab58.css.map": "/moggyshop/static/css/main.2d76ab58.css.map",
+    "main.397b7554.js.map": "/moggyshop/static/js/main.397b7554.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2d76ab58.css",
+    "static/js/main.397b7554.js"
+  ]
+}
