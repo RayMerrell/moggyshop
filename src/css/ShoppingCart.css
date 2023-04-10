@@ -4,8 +4,8 @@
   top: 0%;
   height: 100%;
   background-color: white;
-  border: solid 2px red;
   z-index: 100;
+  overflow-y: scroll;
 }
 .shoppingCartOpen {
     transform: translateX(-100%);

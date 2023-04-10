@@ -3,6 +3,8 @@
     flex-direction: column;
     height: 80vh;
     position:relative;
+    border:solid 2px red;
+    background-color: lightgray;
   }  
   .gridBox{    
     z-index: 0;
@@ -17,6 +19,21 @@
     flex-basis:10vh;
     flex-shrink:0;
     align-self: baseline;
+    display:flex;
+    flex-direction: row;
+    align-items: baseline;
+    width:100vw;
+  }
+  .pageLeft{
+    position:relative !important;
+    width:50%;
+    cursor:pointer;
+    left:5vw;
+  }
+  .pageRight{
+    position:relative !important;
+    width:50%;
+    cursor:pointer;
   }
 .shadowCard{
     box-shadow:0.25rem 0.25rem 0.175rem grey;
@@ -47,36 +64,4 @@
     box-shadow: 0.005em 0.005em 0.1em inset gold, 0.005em 0.005em 0.1em gold;
   }
   
-  @property --gradientAngle{
-    syntax:"<angle>";
-    initial-value:90deg;
-    inherits:false;
-  }
-  @keyframes gradientRotation{
-    0% {--gradientAngle:0deg;}
-    100%{--gradientAngle: 360deg;}
-  }
-  .clsRotatingGlow{
-    position:relative;
-  }
-  .clsRotatingGlow::before, .clsRotatingGlow::after{
-    content:"";
-    filter:blur(0.25em);
-    position: absolute;
-    inset:0;
-    z-index: -1;
-    /* background: gold; */
-    background:conic-gradient(
-        from var(--gradientAngle),
-        rgb(235, 224, 165),
-        gold,
-        rgb(235, 224, 165),
-        gold,
-        rgb(235, 224, 165),
-        gold,
-        rgb(235, 224, 165),
-        gold,
-        rgb(235, 224, 165));
-    border-radius: inherit;
-    animation: gradientRotation 10s linear infinite;
-  }
+
