@@ -10,6 +10,7 @@ const Catalogue = () => {
     const [errorMsg, setErrorMsg] = useState("");
     const [shoppingCart, setShoppingCart] = useState([]);
     const [scStyle, setSCStyle]=useState("shoppingCartHidden");
+    const [buttonText, setButtonText]=useState([]);
 
     let intPage=0;
     const fetchData = async () => {
@@ -26,8 +27,12 @@ const Catalogue = () => {
             cat.name = faker.name.firstName();
             cat.price = faker.finance.amount(50, 200, 2, "", false);
           });
-          console.log("All Data", data);
           setAllCats(data);
+          let newArray=[];
+          for(let x=0;x<6;x++){
+            newArray.push("Add to cart");
+          }
+          setButtonText([...newArray]);          
         } catch (err) {
           setErrorMsg(err);
           console.log(errorMsg);
@@ -38,10 +43,8 @@ const Catalogue = () => {
         fetchData();
     }, [intPage]);
 
-  const addToCart = (id, name, price, url) => {
-    console.log("Add to cart", id, name, price, url);
+  const addToCart = (id, name, price, url, count) => {
     let newArray = shoppingCart;
-    console.log("newArray", newArray);
     let item = {
       id: id,
       name: name,
@@ -50,30 +53,51 @@ const Catalogue = () => {
     };
     newArray.push(item);
     setShoppingCart([...newArray]);
-    console.log("Shopping Cart", shoppingCart);
+    newArray=buttonText;
+    console.log("Count", count);
+    newArray[count]="Remove"; 
+    setButtonText([...newArray]);
     openShoppingCart();
   };
+  const removeFromCart=(id, count)=>{
+    let newCart=[];
+    shoppingCart.map(cat=>{
+      if(!cat.id === id){
+        newCart.push(cat);
+      }
+    });
+    setShoppingCart([...newCart]);
+    let newArray=buttonText;
+    newArray[count]="Add to cart"; 
+    setButtonText([...newArray]);
+  }
   const openShoppingCart =()=>{
     setSCStyle("shoppingCartOpen");
-    console.log("Opening");
   }
   const closeShoppingCart=()=>{
-    console.log("Closing");
     setSCStyle("shoppingCartHidden");
     
   }
-
+  let cardCounter=0;
   return (
     allCats &&
     allCats.length > 0 && (
       <div className="mainDisplayContainer" key="Catalogue">
         <div className="gridBox">
-          {allCats.map((cat) => {
+            {allCats.map((cat) => {
+            let booFound=false;
             let strKey = "CatCard" + cat.id;
             let strBreed = cat.breeds[0].name;
             let strPicTitle =
               "Click for information about the " + strBreed + "breed";
             let breed = cat.breeds[0];
+            cardCounter++;
+            let CardNumber=(cardCounter%6)-1;//if i just used the counter, it always returned the highest value???
+            shoppingCart.map(cartCat=>{
+              if (cat.id === cartCat.id){
+                booFound = true;
+              }
+            })
             return (
               <div className="shadowCard card small" key={strKey} >
                 <div className="card-image waves-effect waves-block waves-light">
@@ -94,14 +118,24 @@ const Catalogue = () => {
                     <i className="material-icons right"></i>
                   </span>
                   <p>
-                    <button
-                      className="addToCart clsRotatingGlow"
-                      onClick={() =>
-                        addToCart(cat.id, cat.name, cat.price, cat.url)
+                    {!booFound?
+                          <button
+                            className="addToCart clsRotatingGlow"
+                            onClick={() => {
+                              addToCart(cat.id, cat.name, cat.price, cat.url, CardNumber);
+                            }}
+                          >
+                            {buttonText[CardNumber]}
+                        </button>
+                      :
+                        <button
+                          className="addToCart clsRotatingGlow"
+                          onClick={() => {
+                              removeFromCart(cat.id, CardNumber);
+                          }}>
+                          {buttonText[CardNumber]}
+                        </button>
                       }
-                    >
-                      Add to cart
-                    </button>
                   </p>
                 </div>
                 <div className="card-reveal">
@@ -116,7 +150,7 @@ const Catalogue = () => {
             );
           })}
         </div>
-        <ShoppingCart cartData={shoppingCart} styleData={scStyle} close={() =>closeShoppingCart()} />
+        <ShoppingCart cartData={shoppingCart} styleData={scStyle} close={closeShoppingCart} />
         <div className="cataloguePageNavContainer">
             <nav className="pageLeft">Back</nav>  
             <nav className="pageRight">Forward</nav>   
@@ -126,5 +160,4 @@ const Catalogue = () => {
     )
   );
 };
-
 export default Catalogue;
