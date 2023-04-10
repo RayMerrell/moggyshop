@@ -1,0 +1,10 @@
+.navBar{
+    flex-basis:10vh;
+    align-self: flex-start;
+    border:solid 1px gold;
+}
+.navBarFooter{
+    flex-basis:10vh;
+    align-self: flex-end;
+    border:solid 4px gold;
+}

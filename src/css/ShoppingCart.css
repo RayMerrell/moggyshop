@@ -1,0 +1,38 @@
+.ShoppingCart {
+  position: absolute;
+  left: 100%;
+  top: 0%;
+  height: 100%;
+  background-color: white;
+  z-index: 100;
+  overflow-y: scroll;
+}
+.shoppingCartOpen {
+    transform: translateX(-100%);
+  animation: slideIn 0.75s;
+}
+.shoppingCartHidden {
+    animation: slideOut 0.75s;
+    transform: translateX(0%);
+  }
+.CartPic {
+  width: 100px;
+  height: 100px;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes slideOut {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}

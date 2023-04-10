@@ -4788,7 +4788,7 @@ small {
 }
 
 .card.small {
-  height: 300px;
+  max-height: 275px;
 }
 
 .card.medium {
